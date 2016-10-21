@@ -12,7 +12,6 @@ import sunpj.loveticket.bean.TicketResult;
  */
 public class TicketApi {
 
-
     private TicketApiService service;
 
     public TicketApi(OkHttpClient okHttpClient) {
@@ -23,7 +22,8 @@ public class TicketApi {
                 .build();
         service = retrofit.create(TicketApiService.class);
     }
-    public Call<TicketResult> getTickets(){
+
+    public Call<TicketResult> getTickets() {
         return service.getTicket();
     }
 
