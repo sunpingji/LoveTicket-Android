@@ -4,24 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import java.io.IOException;
+import com.orhanobut.logger.Logger;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import sunpj.loveticket.AppProfile;
-import sunpj.loveticket.Constant;
-import sunpj.loveticket.MainApplication;
 import sunpj.loveticket.R;
 import sunpj.loveticket.api.TicketApi;
+import sunpj.loveticket.bean.TicketResult;
 
 public class QueryActivity extends AppCompatActivity {
-    private OkHttpClient client;
-    private String url = "https://leancloud.cn:443/1.1/classes/Ticket?limit=10&&order=-updatedAt&&";
 
     public static void start(Context context){
         context.startActivity(new Intent(context,QueryActivity.class));
@@ -32,23 +23,18 @@ public class QueryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query);
         TicketApi api = new TicketApi(AppProfile.getInstance().getOkHttpClient());
+        api.getTickets().enqueue(new retrofit2.Callback<TicketResult>() {
+            @Override
+            public void onResponse(retrofit2.Call<TicketResult> call, retrofit2.Response<TicketResult> response) {
+                Logger.d("onResponse","response "+response);
+            }
 
-//        Request request = new Request.Builder()
-//                .addHeader("X-LC-Id", Constant.APP_ID)
-//                .addHeader("X-LC-Key", Constant.APP_KEY)
-//                .url(url)
-//                .build();
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                Log.d("onFailure", "call " + call);
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                Log.d("onResponse", "call " + call + "  " + response.body().string());
-//            }
-//        });
+            @Override
+            public void onFailure(retrofit2.Call<TicketResult> call, Throwable t) {
+                Logger.d("onFailure","onFailure ");
+            }
+        });
+
 
     }
 

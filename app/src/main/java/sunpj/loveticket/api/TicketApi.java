@@ -1,13 +1,11 @@
 package sunpj.loveticket.api;
 
-import java.util.List;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import sunpj.loveticket.Constant;
-import sunpj.loveticket.bean.Ticket;
+import sunpj.loveticket.bean.TicketResult;
 
 /**
  * Created by sunpi on 2016/10/20.
@@ -25,7 +23,7 @@ public class TicketApi {
                 .build();
         service = retrofit.create(TicketApiService.class);
     }
-    public Call<List<Ticket>> getTickets(){
+    public Call<TicketResult> getTickets(){
         return service.getTicket();
     }
 
