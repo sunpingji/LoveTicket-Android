@@ -46,7 +46,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<RecyclerCardAdapte
 
         public CardViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.card_name);
+            textView = (TextView) itemView.findViewById(R.id.tv_name);
         }
     }
 }
